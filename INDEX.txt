@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Course Landing Page</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .product {
+            width: 60%;
+            margin: 0 auto;
+        }
+        .form-container {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        .message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header style="background-color: black; color: white; text-align: center; padding: 20px;">
+        <img src="path_to_your_logo" alt="Logo">
+    </header>
+    <div class="container">
+        <div class="product">
+            <h1>Facebook Course</h1>
+            <p>The best course in Egypt</p>
+            <div class="slides">
+                <!-- Add your product images here -->
+            </div>
+            <p>Before Offer: 1000 L.E</p>
+            <p>After Offer: 800 L.E</p>
+        </div>
+        <div class="form-container">
+            <h2>Order Now</h2>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <input type="text" name="name" placeholder="Your Name" required><br>
+                <input type="tel" name="mobile" placeholder="Your Mobile Number" required><br>
+                <input type="text" name="city" placeholder="Your City" required><br>
+                <input type="submit" value="Order Now">
+            </form>
+        </div>
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $to = "example@gmail.com";
+            $subject = "New Order: Facebook Course";
+            $message = "Product: Facebook Course\nDescription: The best course in Egypt\nName: " . $_POST['name'] . "\nMobile: " . $_POST['mobile'] . "\nCity: " . $_POST['city'];
+            $headers = "From: example@gmail.com";
+            
+            if (mail($to, $subject, $message, $headers)) {
+                echo '<p class="message">Your order has been sent successfully!</p>';
+                echo '<meta http-equiv="refresh" content="5">';
+            } else {
+                echo '<p class="message">There was an error sending your order. Please try again later.</p>';
+            }
+        }
+        ?>
+    </div>
+</body>
+</html>
